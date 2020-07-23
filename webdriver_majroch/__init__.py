@@ -23,13 +23,13 @@ def run(browser: str="") -> webdriver:
             browsers["chrome"] = 1
     elif system == "Windows":
         import os
-        if os.path.isdir("C:\\Program Files\\Chrome"):
+        if os.path.isdir("C:\\Program Files\\Google\\Chrome"):
             browsers["chrome"] = 1
-        if os.path.isdir("C:\\Program Files (x86)\\Chrome"):
+        if os.path.isdir("C:\\Program Files (x86)\\Google\\Chrome"):
             browsers["chrome"] = 1
-        if os.path.isdir("C:\\Program Files\\Firefox"):
+        if os.path.isdir("C:\\Program Files\\Mozilla Firefox"):
             browsers["firefox"] = 1
-        if os.path.isdir("C:\\Program Files (x86)\\Firefox"):
+        if os.path.isdir("C:\\Program Files (x86)\\Mozilla Firefox"):
             browsers["firefox"] = 1
         
     
