@@ -1,6 +1,5 @@
 from selenium import webdriver
 import platform
-from distutils.spawn import find_executable
 
 def run(browser: str="") -> webdriver:
     # Search for browsers
@@ -17,16 +16,22 @@ def run(browser: str="") -> webdriver:
     
 
     if system == "Linux":
+        from distutils.spawn import find_executable
         if find_executable("firefox"):
             browsers["firefox"] = 1
         if find_executable("chromium"):
             browsers["chrome"] = 1
     elif system == "Windows":
-        if find_executable("firefox"):
-            browsers["firefox"] = 1
-        if find_executable("chrome"):
+        import os
+        if os.path.isdir("C:\\Program Files\\Chrome"):
             browsers["chrome"] = 1
-    
+        if os.path.isdir("C:\\Program Files (x86)\\Chrome"):
+            browsers["chrome"] = 1
+        if os.path.isdir("C:\\Program Files\\Firefox"):
+            browsers["firefox"] = 1
+        if os.path.isdir("C:\\Program Files (x86)\\Firefox"):
+            browsers["chrome"] = 1
+        
     
     if browsers["chrome"] == 1:
         import chromedriver_autoinstaller
