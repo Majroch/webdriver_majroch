@@ -10,6 +10,12 @@ def run(browser: str="") -> webdriver:
         "chrome": 0,
         "edge": 0,
     }
+    if browser == "firefox":
+        browsers['firefox'] = 1
+    elif browser == "chrome":
+        browsers["chrome"] = 1
+    
+
     if system == "Linux":
         if find_executable("firefox"):
             browsers["firefox"] = 1
@@ -20,6 +26,7 @@ def run(browser: str="") -> webdriver:
             browsers["firefox"] = 1
         if find_executable("chrome"):
             browsers["chrome"] = 1
+    
     
     if browsers["chrome"] == 1:
         import chromedriver_autoinstaller
