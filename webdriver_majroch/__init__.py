@@ -30,7 +30,7 @@ def run(browser: str="") -> webdriver:
         if os.path.isdir("C:\\Program Files\\Firefox"):
             browsers["firefox"] = 1
         if os.path.isdir("C:\\Program Files (x86)\\Firefox"):
-            browsers["chrome"] = 1
+            browsers["firefox"] = 1
         
     
     if browsers["chrome"] == 1:
