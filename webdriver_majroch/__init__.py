@@ -13,24 +13,23 @@ def run(browser: str="") -> webdriver:
         browsers['firefox'] = 1
     elif browser == "chrome":
         browsers["chrome"] = 1
-    
-
-    if system == "Linux":
-        from distutils.spawn import find_executable
-        if find_executable("firefox"):
-            browsers["firefox"] = 1
-        if find_executable("chromium"):
-            browsers["chrome"] = 1
-    elif system == "Windows":
-        import os
-        if os.path.isdir("C:\\Program Files\\Google\\Chrome"):
-            browsers["chrome"] = 1
-        if os.path.isdir("C:\\Program Files (x86)\\Google\\Chrome"):
-            browsers["chrome"] = 1
-        if os.path.isdir("C:\\Program Files\\Mozilla Firefox"):
-            browsers["firefox"] = 1
-        if os.path.isdir("C:\\Program Files (x86)\\Mozilla Firefox"):
-            browsers["firefox"] = 1
+    else:
+        if system == "Linux":
+            from distutils.spawn import find_executable
+            if find_executable("firefox"):
+                browsers["firefox"] = 1
+            if find_executable("chromium"):
+                browsers["chrome"] = 1
+        elif system == "Windows":
+            import os
+            if os.path.isdir("C:\\Program Files\\Google\\Chrome"):
+                browsers["chrome"] = 1
+            if os.path.isdir("C:\\Program Files (x86)\\Google\\Chrome"):
+                browsers["chrome"] = 1
+            if os.path.isdir("C:\\Program Files\\Mozilla Firefox"):
+                browsers["firefox"] = 1
+            if os.path.isdir("C:\\Program Files (x86)\\Mozilla Firefox"):
+                browsers["firefox"] = 1
         
     
     if browsers["chrome"] == 1:
