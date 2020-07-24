@@ -1,7 +1,7 @@
 from selenium import webdriver
 import platform
 
-def run(browser: str="") -> webdriver:
+def run(browser: str="", mute_browser: bool=True) -> webdriver:
     # Search for browsers
     system = platform.system()
     browsers = {
@@ -35,8 +35,14 @@ def run(browser: str="") -> webdriver:
     if browsers["chrome"] == 1:
         import chromedriver_autoinstaller
         chromedriver_autoinstaller.install()
-        return webdriver.Chrome()
+        options = webdriver.ChromeOptions()
+        if mute_browser:
+            options.add_argument("--mute-audio")
+        return webdriver.Chrome(chrome_options=options)
     elif browsers["firefox"] == 1:
         import geckodriver_autoinstaller
         geckodriver_autoinstaller.install()
-        return webdriver.Firefox()
+        options = webdriver.FirefoxProfile()
+        if mute_browser:
+            options.set_preference("media.volume_scale", "0.0")
+        return webdriver.Firefox(firefox_profile=options)
