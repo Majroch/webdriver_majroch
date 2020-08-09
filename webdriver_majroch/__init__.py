@@ -9,6 +9,10 @@ def run(browser: str="", mute_browser: bool=True, headless: bool=True) -> webdri
         "chrome": 0,
         "edge": 0,
     }
+    webdrivers = {
+        "geckodriver": 0,
+        "chromedriver": 0,
+    }
     if browser == "firefox":
         browsers['firefox'] = 1
     elif browser == "chrome":
@@ -17,8 +21,12 @@ def run(browser: str="", mute_browser: bool=True, headless: bool=True) -> webdri
         if system == "Linux":
             from distutils.spawn import find_executable
             if find_executable("firefox"):
+                if find_executable('geckodriver'):
+                    webdrivers['geckodriver'] = 1
                 browsers["firefox"] = 1
             if find_executable("chromium"):
+                if find_executable('chromedriver'):
+                    webdrivers['chromedriver'] = 1
                 browsers["chrome"] = 1
         elif system == "Windows":
             import os
@@ -33,8 +41,9 @@ def run(browser: str="", mute_browser: bool=True, headless: bool=True) -> webdri
         
     
     if browsers["chrome"] == 1:
-        import chromedriver_autoinstaller
-        chromedriver_autoinstaller.install()
+        if not webdrivers['chromedriver'] == 1:
+            import chromedriver_autoinstaller
+            chromedriver_autoinstaller.install()
         options = webdriver.ChromeOptions()
         if headless:
             options.headless = True
@@ -42,8 +51,9 @@ def run(browser: str="", mute_browser: bool=True, headless: bool=True) -> webdri
             options.add_argument("--mute-audio")
         return webdriver.Chrome(chrome_options=options)
     elif browsers["firefox"] == 1:
-        import geckodriver_autoinstaller
-        geckodriver_autoinstaller.install()
+        if not webdrivers['geckodriver'] == 1:
+            import geckodriver_autoinstaller
+            geckodriver_autoinstaller.install()
         options = webdriver.FirefoxProfile()
         if headless:
             options.headless = True
